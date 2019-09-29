@@ -1,5 +1,5 @@
-# Template for micro-service in Rust #
-[![Build Status](https://dev.azure.com/butzist/DevOpsDemo/_apis/build/status/DevOpsDemoTF.DevOpsDemo-template-Rust?branchName=master)](https://dev.azure.com/butzist/DevOpsDemo/_build/latest?definitionId=6&branchName=master)
+# Template for micro-service in Rust (with async/await) #
+[![Build Status](https://dev.azure.com/butzist/DevOpsDemo/_apis/build/status/DevOpsDemoTF.DevOpsDemo-template-Rust?branchName=master)](https://dev.azure.com/butzist/DevOpsDemo/_build/latest?definitionId=9&branchName=master)
 
 ### Description ###
 Micro-service template to use with my [DevOpsDemo](https://github.com/DevOpsDemoTF/DevOpsDemo)

@@ -10,7 +10,7 @@ resources:
 - repo: self
 
 variables:
-  name: 'devopsdemo-template-rust'
+  name: 'devopsdemo-template-rust-async'
   tagname: 'latest'
 
 stages:
