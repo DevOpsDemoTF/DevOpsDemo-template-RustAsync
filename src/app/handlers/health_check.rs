@@ -1,8 +1,7 @@
 use super::*;
-use http::StatusCode;
 use lazy_static::lazy_static;
-use prometheus::{opts, register_counter, register_int_counter, IntCounter};
-use tide::{Context, EndpointResult};
+use prometheus::{register_int_counter, IntCounter};
+use tide::{Request, Response, Result, StatusCode};
 
 lazy_static! {
     static ref HEALTH_CHECK_COUNTER: IntCounter = register_int_counter!(
@@ -12,12 +11,12 @@ lazy_static! {
     .unwrap();
 }
 
-pub async fn handler(cx: Context<super::SharedState>) -> EndpointResult<String> {
+pub async fn handler(req: Request<SharedState>) -> Result {
     HEALTH_CHECK_COUNTER.inc();
-    let state = cx.state().read().map_err(|e| wrap_err(e))?;
-    if state.healthy {
-        Ok("".to_string())
+    let state = req.state().read().map_err(wrap_err)?;
+    if state.ping().is_ok() {
+        Ok(Response::new(StatusCode::Ok))
     } else {
-        Err(StatusCode::INTERNAL_SERVER_ERROR.into())
+        Ok(Response::new(StatusCode::InternalServerError))
     }
 }

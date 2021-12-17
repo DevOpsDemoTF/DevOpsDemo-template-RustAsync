@@ -1,20 +1,18 @@
 use config::Config;
-use slog_scope::info;
 
 mod app;
 mod config;
 mod metrics;
 
-fn main() {
+#[async_std::main]
+async fn main() -> tide::Result<()> {
     let config = Config::new();
-    metrics::init();
+    tide::log::with_level(config.log_level.to_level_filter());
 
-    info!("Service has been started");
+    tide::log::info!("Service has been started");
 
     let app = app::new(&config);
 
-    slog_scope::scope(
-        &slog_scope::logger().new(slog::o!("scope" => "api")),
-        || app.run("0.0.0.0:8080").unwrap(),
-    );
+    futures::try_join!(metrics::init(), app.listen("127.0.0.1:8080"))?;
+    Ok(())
 }

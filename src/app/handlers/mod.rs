@@ -1,17 +1,10 @@
-use http::StatusCode;
-use tide::{Body, Error};
+use tide::{Error, StatusCode};
 
 pub mod health_check;
 
 type SharedState = super::SharedState;
 
-#[cfg(test)]
-mod tests;
-
 fn wrap_err<E: std::error::Error>(err: E) -> Error {
-    let resp = http::Response::builder()
-        .status(StatusCode::INTERNAL_SERVER_ERROR)
-        .body(Body::from(err.to_string()))
-        .unwrap();
-    resp.into()
+    let err_msg = anyhow::Error::msg(err.to_string());
+    tide::Error::new(StatusCode::InternalServerError, err_msg)
 }

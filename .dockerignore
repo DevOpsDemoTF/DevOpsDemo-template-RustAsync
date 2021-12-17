@@ -1,0 +1,14 @@
+Dockerfile
+.gitlab-ci.yml
+/api_tests/
+.dockerignore
+.git/
+.gitignore
+
+# from .gitignore
+/.idea/
+/.vscode/
+/.ionide/
+/target
+**/*.rs.bk
+.local-*

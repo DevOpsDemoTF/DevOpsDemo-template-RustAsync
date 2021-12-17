@@ -1,7 +1,7 @@
-use slog::Level;
 use std::env;
 use std::io::Write;
 use std::str::FromStr;
+use tide::log::Level;
 
 #[derive(Debug)]
 pub struct Config {
@@ -32,5 +32,5 @@ fn log_level() -> Level {
             .unwrap();
             err
         })
-        .unwrap_or(Level::Warning)
+        .unwrap_or(Level::Warn)
 }
