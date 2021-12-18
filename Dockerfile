@@ -25,7 +25,7 @@ RUN cargo build --release --target x86_64-unknown-linux-musl --bin app && \
 FROM alpine:3.14
 WORKDIR /app
 
-RUN apk --no-cache add ca-certificates && \
+RUN apk --no-cache add ca-certificates dumb-init && \
     addgroup -S app && adduser -S app -G app
 
 EXPOSE 8080
@@ -36,4 +36,5 @@ ENV LOG_LEVEL "DEBUG"
 COPY --from=build /app/target/*/release/app /app/test-results.xml /app/
 
 USER app
+ENTRYPOINT [ "dumb-init" ]
 CMD ["./app"]

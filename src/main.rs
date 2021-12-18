@@ -13,6 +13,6 @@ async fn main() -> tide::Result<()> {
 
     let app = app::new(&config);
 
-    futures::try_join!(metrics::init(), app.listen("127.0.0.1:8080"))?;
+    futures::try_join!(metrics::init(), app.listen("0.0.0.0:8080"))?;
     Ok(())
 }
